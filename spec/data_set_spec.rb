@@ -385,6 +385,23 @@ describe DataSet do
     end
   end
 
+  describe '#branchlet?' do
+    context 'set has no children' do
+      subject { DataSet.new.branchlet? }
+      it { is_expected.to be false }
+    end
+
+    context 'set has a non-twig among its children' do
+      subject { DataSet.new(data: [DataSet.new(data: [DataSet.new(data: [DataSet.new])])]).branchlet? }
+      it { is_expected.to be false }
+    end
+
+    context 'has only twigs among its children' do
+      subject { DataSet.new(data: [DataSet.new(data: [DataSet.new(data: 123)])]).branchlet? }
+      it { is_expected.to be true }
+    end
+  end
+
   describe '#child_branches' do
     context 'when there are no children' do
       subject { DataSet.new.child_branches }

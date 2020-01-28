@@ -92,8 +92,8 @@ class DataSet
     children.any?
   end
 
-  def child_branches
-    children.select(&:branch?)
+  def branchlet?
+    !leaf? && children.all?(&:twig?)
   end
 
   def twig?
@@ -102,6 +102,10 @@ class DataSet
 
   def leaf?
     children.none?
+  end
+
+  def child_branches
+    children.select(&:branch?)
   end
 
   def leaf_labels

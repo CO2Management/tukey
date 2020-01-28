@@ -96,16 +96,16 @@ class DataSet
     !leaf? && children.all?(&:twig?)
   end
 
-  def child_branches
-    children.select(&:branch?)
-  end
-
   def twig?
     !leaf? && children.all?(&:leaf?)
   end
 
   def leaf?
     children.none?
+  end
+
+  def child_branches
+    children.select(&:branch?)
   end
 
   def leaf_labels

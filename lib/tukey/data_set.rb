@@ -114,7 +114,6 @@ class DataSet
 
   def leaf_labels
     return [] if leaf?
-    return [] if children.none?
     return children.map(&:label) if twig?
     children.map(&:leaf_labels).flatten.uniq
   end

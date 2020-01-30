@@ -299,6 +299,19 @@ describe DataSet do
     end
   end
 
+  describe '#twigs' do
+    let(:non_twig_branch) { DataSet.new(label: 'Non twig', data: [DataSet.new(data: [DataSet.new(data: 1)])]) }
+    subject { DataSet.new(data: [data_set_branch_food, data_set_leaf_super_foods, non_twig_branch]) }
+
+    it 'returns only twig children' do
+      expect(subject.children).to match_array([data_set_branch_food, data_set_leaf_super_foods, non_twig_branch]) # sanity check
+
+      expect(subject.twigs).to include(data_set_branch_food)
+      expect(subject.twigs).not_to include(data_set_leaf_super_foods)
+      expect(subject.twigs).not_to include(non_twig_branch)
+    end
+  end
+
   describe '#leafs' do
     it 'returns only leaf children' do
       expect(data_set_branch_and_leaf_food.leafs).to include(data_set_leaf_super_foods)

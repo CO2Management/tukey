@@ -46,6 +46,10 @@ class DataSet
     []
   end
 
+  def twigs
+    children.select(&:twig?)
+  end
+
   def leafs
     children.select(&:leaf?)
   end

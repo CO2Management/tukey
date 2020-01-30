@@ -112,6 +112,12 @@ class DataSet
     children.select(&:branch?)
   end
 
+  def twig_labels
+    return [] if leaf? || twig?
+    return children.map(&:label) if branchlet?
+    children.map(&:twig_labels).flatten.uniq
+  end
+
   def leaf_labels
     return [] if leaf?
     return children.map(&:label) if twig?

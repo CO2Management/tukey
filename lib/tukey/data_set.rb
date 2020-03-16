@@ -63,9 +63,7 @@ class DataSet
     return [] if parent.nil?
     ancs = []
     par = parent
-    require 'pry'
     until par.nil?
-      puts par.label.name
       ancs.push par
       par = par.parent
     end

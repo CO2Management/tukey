@@ -457,6 +457,16 @@ describe DataSet do
     end
   end
 
+  describe 'root' do
+    it 'returns self when root' do
+      expect(data_set_root.root).to eq data_set_root
+    end
+
+    it 'returns the root node when self not root' do
+      expect(data_set_leaf_junk_food.root).to eq data_set_root
+    end
+  end
+
   describe '#twig?' do
     context 'set has no children' do
       subject { DataSet.new.twig? }

@@ -82,6 +82,10 @@ class DataSet
     parent.nil?
   end
 
+  def root
+    root? ? self : ancestors.first
+  end
+
   def empty?
     if data_array?
       data.all?(&:empty?)

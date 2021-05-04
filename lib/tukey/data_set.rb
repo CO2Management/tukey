@@ -56,7 +56,7 @@ class DataSet
 
   def siblings
     return [] if parent.nil?
-    parent.children.reject { |c| c == self }
+    parent.children.reject { |c| c.id == self.id }
   end
 
   def ancestors

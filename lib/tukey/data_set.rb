@@ -306,7 +306,7 @@ class DataSet
         end
       end
       merged_children += other_children # The remaining other children (without matching child in this data set)
-      merged_data_set.data = merged_children
+      merged_data_set.data = merged_children.sort_by { |c| c.label.name }
     elsif !data_array? && !other_data_set.data_array? # Merge values
       if block_given? # Combine data using block
         merged_data_set.data = yield(label, value, other_data_set.value)

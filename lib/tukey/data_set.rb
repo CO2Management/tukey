@@ -221,9 +221,7 @@ class DataSet
 
   # == is used for comparison of two instances directly
   def ==(other)
-    other_data = other.data.nil? ? nil : (other.data.is_a?(Enumerable) ? other.data.sort : other.data )
-    own_data = data.nil? ? nil : (data.is_a?(Enumerable) ? data.sort : data )
-    other.label == label && other_data == own_data
+    other.label == label && other.data == data
   end
 
   # eql? and hash are both used for comparisons when you
@@ -308,7 +306,7 @@ class DataSet
         end
       end
       merged_children += other_children # The remaining other children (without matching child in this data set)
-      merged_data_set.data = merged_children
+      merged_data_set.data = merged_children.sort_by { |c| c.label.name }
     elsif !data_array? && !other_data_set.data_array? # Merge values
       if block_given? # Combine data using block
         merged_data_set.data = yield(label, value, other_data_set.value)

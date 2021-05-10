@@ -108,8 +108,8 @@ describe DataSet do
           expect(first_same_parent_set == second_different_parent_set).to eq false
         end
 
-        it 'return true for two sets with the same children in different orders' do
-          expect(first_same_parent_set == fourth_same_parent_set).to eq true
+        it 'return false for two sets with the same children in different orders' do
+          expect(first_same_parent_set == fourth_same_parent_set).to eq false
         end
 
         it 'returns false for two sets with different labels with the same children' do
@@ -1057,17 +1057,17 @@ describe DataSet do
     context 'without block' do
       subject { set1.merge(set2) }
 
-      it 'merges the two sets overwriting values for the same label (path)' do
+      it 'merges and sorts the two sets overwriting values for the same label (path)' do
         expect(subject).to eq(
           DataSet.new(label: 'Root', data: [
+            DataSet.new(label: 'Birds', data: 8),
+            DataSet.new(label: 'People', data: 2),
             DataSet.new(label: 'Squirrels', data: 1),
             DataSet.new(label: 'Trees', data: [
               DataSet.new(label: 'Apple', data: 5),
-              DataSet.new(label: 'Pear', data: 4),
               DataSet.new(label: 'Peach', data: 5),
+              DataSet.new(label: 'Pear', data: 4),
             ]),
-            DataSet.new(label: 'Birds', data: 8),
-            DataSet.new(label: 'People', data: 2),
           ])
         )
       end
@@ -1076,17 +1076,17 @@ describe DataSet do
     context 'with block' do
       subject { set1.merge(set2) { |l, v1, v2| v1 + v2 } }
 
-      it 'merges the two sets applying block to values for the same label (path)' do
+      it 'merges and sorts the two sets applying block to values for the same label (path)' do
         expect(subject).to eq(
           DataSet.new(label: 'Root', data: [
+            DataSet.new(label: 'Birds', data: 8),
+            DataSet.new(label: 'People', data: 2),
             DataSet.new(label: 'Squirrels', data: 3),
             DataSet.new(label: 'Trees', data: [
               DataSet.new(label: 'Apple', data: 5),
-              DataSet.new(label: 'Pear', data: 7),
               DataSet.new(label: 'Peach', data: 5),
+              DataSet.new(label: 'Pear', data: 7),
             ]),
-            DataSet.new(label: 'Birds', data: 8),
-            DataSet.new(label: 'People', data: 2),
           ])
         )
       end

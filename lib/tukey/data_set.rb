@@ -221,9 +221,7 @@ class DataSet
 
   # == is used for comparison of two instances directly
   def ==(other)
-    other_data = other.data.nil? ? nil : (other.data.is_a?(Enumerable) ? other.data.sort : other.data )
-    own_data = data.nil? ? nil : (data.is_a?(Enumerable) ? data.sort : data )
-    other.label == label && other_data == own_data
+    other.label == label && other.data == data
   end
 
   # eql? and hash are both used for comparisons when you

@@ -108,8 +108,8 @@ describe DataSet do
           expect(first_same_parent_set == second_different_parent_set).to eq false
         end
 
-        it 'return true for two sets with the same children in different orders' do
-          expect(first_same_parent_set == fourth_same_parent_set).to eq true
+        it 'return false for two sets with the same children in different orders' do
+          expect(first_same_parent_set == fourth_same_parent_set).to eq false
         end
 
         it 'returns false for two sets with different labels with the same children' do

@@ -995,7 +995,7 @@ describe DataSet do
     end
 
     it 'applies the given block to the labels of every (sub) set' do
-      subject.transform_labels! { |l| DataSet::Label.new(l.name.upcase) }
+      result = subject.transform_labels! { |l| DataSet::Label.new(l.name.upcase) }
       expect(subject).to eq(
         DataSet.new(label: 'ROOT', data: [
           DataSet.new(label: 'AAA', data: 3),
@@ -1003,6 +1003,7 @@ describe DataSet do
           DataSet.new(label: 'CCC', data: 7),
         ])
       )
+      expect(result).to eq(subject) # Check self is returned after operation
     end
 
     it 'passes the data set as second argument to the block for when this is useful' do
@@ -1018,10 +1019,11 @@ describe DataSet do
     end
 
     it 'applies the given block to the values (of the leafs)' do
-      subject.transform_values! { |v| v * 10 }
+      result = subject.transform_values! { |v| v * 10 }
       expect(subject).to eq(
         DataSet.new(data: [DataSet.new(data: 30), DataSet.new(data: 50), DataSet.new(data: 70)])
       )
+      expect(result).to eq(subject) # Check self is returned after operation
     end
 
     it 'passes the data set as second argument to the block for when this is useful' do

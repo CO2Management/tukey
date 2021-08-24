@@ -1013,6 +1013,23 @@ describe DataSet do
     end
   end
 
+  describe '#transform_values' do
+    subject do
+      DataSet.new(data: [DataSet.new(data: 3), DataSet.new(data: 5), DataSet.new(data: 7)])
+    end
+
+    it 'returns a copy of the DataSet with the given block applied to the values (of the leafs)' do
+      result = subject.transform_values { |v| v * 10 }
+      expect(result).to eq(
+        DataSet.new(data: [DataSet.new(data: 30), DataSet.new(data: 50), DataSet.new(data: 70)])
+      )
+      # Verify the original data set is not changed in place
+      expect(subject).to eq(
+        DataSet.new(data: [DataSet.new(data: 3), DataSet.new(data: 5), DataSet.new(data: 7)])
+      )
+    end
+  end
+
   describe '#transform_values!' do
     subject do
       DataSet.new(data: [DataSet.new(data: 3), DataSet.new(data: 5), DataSet.new(data: 7)])

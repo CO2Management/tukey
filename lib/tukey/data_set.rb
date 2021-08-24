@@ -283,9 +283,13 @@ class DataSet
     self
   end
 
-  def transform_values!(&block)
+  def transform_values(&block)
+    dup.transform_values!(bang: false, &block)
+  end
+
+  def transform_values!(bang: true, &block)
     if data_array?
-      self.data = data.map { |d| d.transform_values!(&block) }
+      self.data = data.map { |d| d.public_send(bang ? :transform_values! : :transform_values, &block) }
     else
       self.data = yield(value, self)
     end

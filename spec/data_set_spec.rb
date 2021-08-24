@@ -1006,7 +1006,7 @@ describe DataSet do
       expect(result).to eq(subject) # Check self is returned after operation
     end
 
-    it 'passes the data set as second argument to the block for when this is useful' do
+    it 'passes the data set as second argument to the block' do
       expect {
         subject.transform_values! { |v, set| raise 'Spec failed' unless set.is_a?(DataSet) }
       }.not_to raise_error
@@ -1026,7 +1026,7 @@ describe DataSet do
       expect(result).to eq(subject) # Check self is returned after operation
     end
 
-    it 'passes the data set as second argument to the block for when this is useful' do
+    it 'passes the data set as second argument to the block' do
       expect {
         subject.transform_values! { |v, set| raise 'Spec failed' unless set.is_a?(DataSet) }
       }.not_to raise_error

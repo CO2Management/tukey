@@ -9,7 +9,7 @@ class DataSet
     def initialize(name, id: nil, meta: {})
       @name = name
       @id = id || name
-      fail ArgumentError, 'DataSet::Label meta must be a Hash' unless meta.is_a?(Hash)
+      fail ArgumentError, "DataSet::Label meta must be a Hash, but is a #{meta.class}" unless meta.is_a?(Hash)
       @meta = OpenStruct.new(meta)
     end
 

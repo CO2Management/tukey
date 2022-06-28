@@ -29,8 +29,8 @@ describe DataSet::Label do
 
     describe '@meta' do
       context 'no meta given' do
-        it 'is an empty OpenStruct by default' do
-          expect(subject.meta).to be_a(OpenStruct)
+        it 'is an empty OrderedOptions by default' do
+          expect(subject.meta).to be_a(ActiveSupport::OrderedOptions)
         end
       end
 

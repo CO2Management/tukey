@@ -30,9 +30,9 @@ class DataSet
 
     def deep_dup
       label = dup
-      id = id.dup if id
-      name = name.dup if name
-      meta = meta.dup if meta
+      label.id = id.dup if id
+      label.name = name.dup if name
+      label.meta = meta.dup if meta
       label
     end
   end

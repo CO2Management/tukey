@@ -60,7 +60,7 @@ describe DataSet do
         it 'calls label constructor with given label[:name] as name and the rest of the parameters as key values' do
           expect(subject.label.id).to eq :some_label
           expect(subject.label.name).to eq 'Another label'
-          expect(subject.label.meta).to eq OpenStruct.new(parent_share: 23)
+          expect(subject.label.meta).to eq({ parent_share: 23 })
         end
       end
     end

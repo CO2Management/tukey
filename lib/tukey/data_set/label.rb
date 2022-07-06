@@ -1,4 +1,4 @@
-require 'ostruct'
+require 'active_support/ordered_options'
 
 class DataSet
   class Label
@@ -9,8 +9,8 @@ class DataSet
     def initialize(name, id: nil, meta: {})
       @name = name
       @id = id || name
-      fail ArgumentError, 'DataSet::Label meta must be a Hash' unless meta.is_a?(Hash)
-      @meta = OpenStruct.new(meta)
+      fail ArgumentError, "DataSet::Label meta must be a Hash, but is a #{meta.class}" unless meta.is_a?(Hash)
+      @meta = SerializableOptions.new.merge!(meta)
     end
 
     # == is used for comparison of two instances directly
@@ -30,10 +30,20 @@ class DataSet
 
     def deep_dup
       label = dup
-      id = id.dup if id
-      name = name.dup if name
-      meta = meta.dup if meta
+      label.id = id.dup if id
+      label.name = name.dup if name
+      label.meta = meta.dup if meta
       label
+    end
+
+    class SerializableOptions < ::ActiveSupport::OrderedOptions
+      def marshal_dump
+        to_h
+      end
+
+      def marshal_load(h)
+        merge!(h)
+      end
     end
   end
 end
